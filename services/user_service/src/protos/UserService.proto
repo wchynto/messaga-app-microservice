@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package user_service;
+
+message User {
+  string uuid = 1; // UUID as a string
+  string name = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message Users {
+  repeated User users = 1;
+}
+
+message GetUserByUUIDRequest {
+  string uuid = 1; // UUID as a string
+}
+
+message GetUsersRequest {
+  // You can add parameters like pagination here if needed
+}
+
+message CreateUserRequest {
+  User user = 1;
+}
+
+message UpdateUserRequest {
+  User user = 1; // You can use UUID to specify the user to update
+}
+
+message DeleteUserRequest {
+  string uuid = 1; // UUID as a string
+}
+
+message AuthenticateUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+service UserService {
+  rpc AuthenticateUser(AuthenticateUserRequest) returns (User) {}
+  rpc GetUser(GetUserByUUIDRequest) returns (User) {}
+  rpc GetUsers(GetUsersRequest) returns (Users) {}
+  rpc CreateUser(CreateUserRequest) returns (User) {}
+  rpc UpdateUser(UpdateUserRequest) returns (User) {}
+  rpc DeleteUser(DeleteUserRequest) returns (User) {} 
+}
